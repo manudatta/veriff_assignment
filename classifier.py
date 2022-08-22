@@ -1,3 +1,4 @@
+import copy
 import os
 import pdb
 import sys
@@ -26,7 +27,7 @@ def process_image_urls(classifier: BirdClassifier, bird_labels_dict: Dict[int, B
         logger.info(f"Processing image_url: {url}")
         url_raw_data = download_url(url).read()
         model_raw_result = classifier.process_image(url_raw_data)
-        sorted_birds_result = order_birds_by_result_score(model_raw_result, bird_labels_dict)
+        sorted_birds_result = order_birds_by_result_score(model_raw_result, copy.deepcopy(bird_labels_dict))
         print_results(i, sorted_birds_result)
 
 
