@@ -1,5 +1,6 @@
 import os
 import pdb
+import sys
 import time
 import logging
 from typing import List, Dict
@@ -34,7 +35,11 @@ if __name__ == "__main__":
     logger.info("Started loading model")
     model = load_model(MODEL_URL)
     logger.info("Loading model finished")
+    args_len = len(sys.argv)
+    images_url = IMAGE_URLS
+    if args_len > 1:
+        images_url = sys.argv[1:]
     bird_lables_dict = load_and_parse_labels(LABELS_URL)
     classifier = BirdClassifier(model=model)
-    process_image_urls(classifier, bird_lables_dict, IMAGE_URLS)
+    process_image_urls(classifier, bird_lables_dict, images_url)
     print('Time spent: %s' % (time.time() - start_time))
